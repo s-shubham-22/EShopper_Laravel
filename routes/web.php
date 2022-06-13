@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\BackendController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,9 @@ use App\Http\Controllers\FrontendController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// FrontEnd Routes
+
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
@@ -28,3 +32,7 @@ Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 Route::get('/login', [FrontendController::class, 'login'])->name('login');
 
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
+
+// Backend Routes
+
+Route::get('/admin', [BackendController::class, 'index'])->name('admin');
