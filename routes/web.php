@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,3 +37,8 @@ Route::get('/register', [FrontendController::class, 'register'])->name('register
 // Backend Routes
 
 Route::get('/admin', [BackendController::class, 'index'])->name('admin');
+
+Route::prefix('admin')->group(function () {
+    Route::resource('category', CategoryController::class);
+    Route::post('category/change_status', [CategoryController::class, 'change_status'])->name('category.change_status');
+});
