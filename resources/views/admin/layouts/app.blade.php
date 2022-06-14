@@ -76,7 +76,15 @@
             <li class="nav-item {{ (request()->is('admin/category*')) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('category.index') }}">
                     <i class="fas fa-fw fa-list"></i>
-                    <span>Categories</span>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Brands -->
+            <li class="nav-item {{ (request()->is('admin/brand*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('brand.index') }}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Brand</span>
                 </a>
             </li>
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeSliderController;
+use App\Http\Controllers\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('category', CategoryController::class);
     Route::post('category/change_status', [CategoryController::class, 'change_status'])->name('category.change_status');
+
+    Route::resource('brand', BrandController::class);
+    Route::post('brand/change_status', [BrandController::class, 'change_status'])->name('brand.change_status');
 });
