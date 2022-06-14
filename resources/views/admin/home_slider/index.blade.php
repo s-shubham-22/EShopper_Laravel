@@ -1,8 +1,8 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Category')
+@section('title', 'Home Slider')
 
-@section('heading', 'Category')
+@section('heading', 'Home Slider')
 
 @section('css')
     <link href="{{ asset('backend/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
@@ -10,14 +10,14 @@
 
 @section('content')
     <div class="d-flex justify-content-end">
-        <a href="{{ route('category.create') }}">
-            <button class="btn btn-primary mb-4">Add Category</button>
+        <a href="{{ route('home-slider.create') }}">
+            <button class="btn btn-primary mb-4">Add Home Slider</button>
         </a>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Category</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Home Slider</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -26,7 +26,7 @@
                         
                         <tr>
                             <th>#</th>
-                            <th>Category Name</th>
+                            <th>Slider Name</th>
                             <th>Image</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -35,14 +35,14 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($categories as $category)
+                        @foreach ($home_sliders as $slider)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $category->name }}</td>
+                            <td>{{ $slider->name }}</td>
                             <td>
-                                <img src="{{ asset('uploads/category/'.$category->image) }}" alt="{{ $category->name }}" height="50px">
+                                <img src="{{ asset('uploads/slider/'.$slider->image) }}" alt="{{ $slider->name }}" height="50px">
                             </td>
-                            @if ($category->status == 1)
+                            @if ($slider->status == 1)
                                 @php
                                     $status_checked = 'checked';
                                 @endphp
@@ -51,16 +51,16 @@
                                     $status_checked = '';
                                 @endphp                            
                             @endif
-                            <td class="text-center"><input type="checkbox" id="status-{{ $category->id }}" {{ $status_checked }} onclick="change_status({{$category->id}});"></td>
+                            <td class="text-center"><input type="checkbox" id="status-{{ $slider->id }}" {{ $status_checked }} onclick="change_status({{$slider->id}});"></td>
                             <td>
-                                <a href="{{ route('category.edit', $category->id) }}">
+                                <a href="{{ route('home-slider.edit', $slider->id) }}">
                                     <button class="btn btn-success">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </a>
                             </td>
                             <td>
-                                <form action="{{ route('category.destroy', $category->id) }}" method="POST" onsubmit="return confirmation();">
+                                <form action="{{ route('home-slider.destroy', $slider->id) }}" method="POST" onsubmit="return confirmation();">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">
@@ -74,7 +74,7 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Category Name</th>
+                            <th>Slider Name</th>
                             <th>Image</th>
                             <th>Status</th>
                             <th>Edit</th>
@@ -109,7 +109,7 @@
                 status = 0;
             }
             $.ajax({
-                url: "/admin/category/change_status",
+                url: "/admin/home-slider/change_status",
                 type: 'POST',
                 data: {
                     id: id,

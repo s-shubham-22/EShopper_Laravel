@@ -64,9 +64,17 @@
                 Functionality
             </div>
 
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="category/">
+            <!-- Nav Item - Home Slider -->
+            <li class="nav-item {{ (request()->is('admin/home-slider*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('home-slider.index') }}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Home Slider</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Categories -->
+            <li class="nav-item {{ (request()->is('admin/category*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('category.index') }}">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Categories</span>
                 </a>

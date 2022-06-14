@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeSliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,9 @@ Route::get('/register', [FrontendController::class, 'register'])->name('register
 Route::get('/admin', [BackendController::class, 'index'])->name('admin');
 
 Route::prefix('admin')->group(function () {
+    Route::resource('home-slider', HomeSliderController::class);
+    Route::post('home-slider/change_status', [HomeSliderController::class, 'change_status'])->name('home-slider.change_status');
+
     Route::resource('category', CategoryController::class);
     Route::post('category/change_status', [CategoryController::class, 'change_status'])->name('category.change_status');
 });

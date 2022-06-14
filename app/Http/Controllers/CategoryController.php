@@ -41,23 +41,26 @@ class CategoryController extends Controller
     public function store(StoreCategory $request)
     {
         $validated = $request->validated();
-        $category = new Category($validated);
+        $validated['slug'] = Str::slug($validated['name']);
 
-        $category->name = $validated['name'];
-        $category->slug = Str::slug($validated['name']);
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('/uploads/category'), $filename);
-            $category->image = $filename;
-        }
-        if($category->save()) {
-            $request->session()->flash('success', 'Category Created Successfully!');
-        } else {
-            $request->session()->flash('error', 'Category not Created!');
+        $category = Category::create($validated);
+
+        $upload_dir='category';
+        if(isset($request->image) && !empty($request->image))
+        {
+            $microtime=microtime();
+            $microtime=str_replace('.','', $microtime);
+            $microtime=str_replace(' ','', $microtime);
+            $fileName = $microtime.'.'.$request->image->extension();
+            if($request->image->move(public_path('uploads/'.$upload_dir), $fileName))
+            {
+                $fileupload_data = Category::where('id',$category->id)->update([
+                    'image' => $fileName
+                ]);
+            }
         }
         
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category Created Successfully!');        
     }
 
     /**

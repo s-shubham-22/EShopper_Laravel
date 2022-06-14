@@ -2,7 +2,7 @@
 
 @section('title', 'Category')
 
-@section('heading', 'Category')
+@section('heading', 'Edit Category')
     
 @section('content')
 <div class="card shadow mb-4">
