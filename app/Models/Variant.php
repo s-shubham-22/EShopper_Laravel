@@ -6,23 +6,23 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class Variant extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    public function products()
+    public function product()
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
-    protected $dates = ['deleted_at'];
     protected $fillable = [
-        'name',
-        'slug',
-        'image',
-        'created_by',
-        'update_by',
-        'deleted_by'
+        'color',
+        'size',
+        'price',
+        'sale_price',
+        'quantity',
+        'status',
+        'product_id'
     ];
 }
