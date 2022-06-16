@@ -96,6 +96,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Contact -->
+            <li class="nav-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('contact.index') }}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VariantController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,4 +65,6 @@ Route::prefix('admin')->group(function () {
     Route::put('variant/update/{id}', [VariantController::class, 'update'])->name('variant.update');
     Route::delete('variant/delete/{id}', [VariantController::class, 'destroy'])->name('variant.destroy');
     Route::post('variant/change_status', [VariantController::class, 'change_status'])->name('variant.change_status');
+
+    Route::resource('contact', ContactController::class)->only(['index', 'store']);
 });
