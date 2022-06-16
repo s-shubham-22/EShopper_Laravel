@@ -96,6 +96,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Variant -->
+            <li class="nav-item {{ (request()->is('admin/variant*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('variant.index') }}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Variant</span>
+                </a>
+            </li>
+
             <!-- Nav Item - Contact -->
             <li class="nav-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('contact.index') }}">

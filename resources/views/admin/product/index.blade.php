@@ -28,8 +28,6 @@
                             <th>#</th>
                             <th>Product Name</th>
                             <th>Image</th>
-                            <th>Description</th>
-                            <th>Full Description</th>
                             <th>Status</th>
                             <th>Action</th>
                             <th>Edit</th>
@@ -45,8 +43,6 @@
                             <td>
                                 <img src="{{ asset('uploads/product/'.$product->image) }}" alt="{{ $product->name }}" height="50px">
                             </td>
-                            <td>{{ $product->description }}</td>
-                            <td>{{ $product->full_description }}</td>
                             @if ($product->status == 1)
                                 @php
                                     $status_checked = 'checked';
@@ -85,8 +81,6 @@
                             <th>#</th>
                             <th>Product Name</th>
                             <th>Image</th>
-                            <th>Description</th>
-                            <th>Full Description</th>
                             <th>Status</th>
                             <th>Action</th>
                             <th>Edit</th>
