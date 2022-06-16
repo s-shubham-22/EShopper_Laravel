@@ -88,6 +88,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Product -->
+            <li class="nav-item {{ (request()->is('admin/product*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('product.index') }}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Product</span>
+                </a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

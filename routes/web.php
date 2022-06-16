@@ -6,6 +6,8 @@ use App\Http\Controllers\BackendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\VariantController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +51,17 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('brand', BrandController::class);
     Route::post('brand/change_status', [BrandController::class, 'change_status'])->name('brand.change_status');
+
+    Route::resource('product', ProductController::class);
+    Route::post('product/change_status', [ProductController::class, 'change_status'])->name('product.change_status');
+
+    // Route::resource('variant', VariantController::class);
+    Route::get('variant/', [VariantController::class, 'index'])->name('variant.index'); // Done
+    Route::get('variant/{id}', [VariantController::class, 'show'])->name('variant.show'); // Done
+    Route::get('variant/create/{id}', [VariantController::class, 'create'])->name('variant.create'); //Done
+    Route::post('variant/store', [VariantController::class, 'store'])->name('variant.store'); // Done
+    Route::get('variant/{id}/edit', [VariantController::class, 'edit'])->name('variant.edit');
+    Route::put('variant/update/{id}', [VariantController::class, 'update'])->name('variant.update');
+    Route::delete('variant/delete/{id}', [VariantController::class, 'destroy'])->name('variant.destroy');
+    Route::post('variant/change_status', [VariantController::class, 'change_status'])->name('variant.change_status');
 });

@@ -25,6 +25,7 @@ class CreateVariantsTable extends Migration
             $table->bigInteger('created_by')->nullable()->default(0);
             $table->bigInteger('update_by')->nullable()->default(0);
             $table->bigInteger('deleted_by')->nullable()->default(0);
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

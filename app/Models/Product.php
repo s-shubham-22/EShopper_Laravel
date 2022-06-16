@@ -26,6 +26,7 @@ class Product extends Model
         return $this->hasMany(Variant::class);
     }
 
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',
         'slug',
