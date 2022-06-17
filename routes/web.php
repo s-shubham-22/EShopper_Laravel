@@ -27,7 +27,11 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 
-Route::get('/shop_detail/{id?}', [FrontendController::class, 'shop_detail'])->name('shop_detail');
+Route::get('/shop_detail/{slug}', [FrontendController::class, 'shop_detail'])->name('shop_detail');
+
+Route::get('/change-color/{id}', [FrontendController::class, 'change_color'])->name('change_color');
+
+Route::get('/change-image/{id}', [FrontendController::class, 'change_image'])->name('change_image');
 
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
 

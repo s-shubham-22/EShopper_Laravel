@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{HomeSlider, Category, Brand, Product, Variant};
 
 class FrontendController extends Controller
 {
     public function index()
     {
-        return view('index');
+        return view('index', [
+            'sliders' => HomeSlider::all(),
+        ]);
     }
 
     public function shop()
@@ -16,9 +19,22 @@ class FrontendController extends Controller
         return view('shop');
     }
 
-    public function shop_detail($id = null)
+    public function shop_detail($slug)
     {
-        return view('shop_detail', compact('id'));
+        $this->data['product'] = Product::with('variants')->where('slug', $slug)->first();
+        return view('shop_detail', $this->data);
+    }
+
+    public function change_color($id)
+    {
+        $variant = Variant::find($id);
+        return getColors($variant);
+    }
+
+    public function change_image($id)
+    {
+        $variant = Variant::find($id);
+        return $variant;
     }
 
     public function cart()
