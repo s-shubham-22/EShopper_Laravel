@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VariantController;
+use App\Http\Controllers\QueryController;
 use App\Http\Controllers\ContactController;
 
 /*
@@ -45,6 +46,8 @@ Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout
 
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
+Route::post('/query_form', [FrontendController::class, 'query_form'])->name('query_form');
+
 Route::get('/login', [FrontendController::class, 'login'])->name('login');
 
 Route::get('/register', [FrontendController::class, 'register'])->name('register');
@@ -75,6 +78,8 @@ Route::prefix('admin')->group(function () {
     Route::put('variant/update/{id}', [VariantController::class, 'update'])->name('variant.update');
     Route::delete('variant/delete/{id}', [VariantController::class, 'destroy'])->name('variant.destroy');
     Route::post('variant/change_status', [VariantController::class, 'change_status'])->name('variant.change_status');
+
+    Route::resource('query', QueryController::class);
 
     Route::resource('contact', ContactController::class)->only(['index', 'store']);
 });

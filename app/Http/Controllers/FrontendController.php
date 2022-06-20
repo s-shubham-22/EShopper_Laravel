@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{HomeSlider, Category, Brand, Product, Variant};
+use App\Http\Requests\QueryRequest;
+use App\Models\{HomeSlider, Category, Brand, Product, Variant, Contact, Query};
 
 class FrontendController extends Controller
 {
@@ -180,7 +181,17 @@ class FrontendController extends Controller
 
     public function contact()
     {
-        return view('contact');
+        $this->data = Contact::all()->first();
+        return view('contact', [
+            'contact' => $this->data
+        ]);
+    }
+
+    public function query_form(QueryRequest $request)
+    {
+        $validated = $request->validated();
+        $query = Query::create($validated);
+        return redirect('/contact')->with('success', 'Your query has been sent successfully.');   
     }
 
     public function login()

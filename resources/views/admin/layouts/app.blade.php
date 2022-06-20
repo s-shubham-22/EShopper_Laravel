@@ -104,6 +104,14 @@
                 </a>
             </li>
 
+            <!-- Nav Item - Query -->
+            <li class="nav-item {{ (request()->is('admin/query*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('query.index') }}">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Query</span>
+                </a>
+            </li>
+
             <!-- Nav Item - Contact -->
             <li class="nav-item {{ (request()->is('admin/contact*')) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('contact.index') }}">

@@ -26,6 +26,9 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
 
+    {{-- toastr --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+
     @yield('stylesheet')
 </head>
 
@@ -221,6 +224,19 @@
 
     <!-- Template Javascript -->
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+
+    {{-- toastr js --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <script>
+        $(document).ready(function() {
+            toastr.options.timeOut = 2000;
+            @if (Session::has('error'))
+                toastr.error('{{ Session::get('error') }}');
+            @elseif(Session::has('success'))
+                toastr.success('{{ Session::get('success') }}');
+            @endif
+        }); 
+    </script>
 
     @yield('script')
 </body>
