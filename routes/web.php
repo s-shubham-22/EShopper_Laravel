@@ -27,6 +27,12 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 
+Route::get('/shop/{category_id?}', [FrontendController::class, 'shop'])->name('shop');
+
+Route::post('/sort_products', [FrontendController::class, 'sort_products'])->name('sort_products');
+
+Route::post('/filter_products', [FrontendController::class, 'filter_products'])->name('filter_products');
+
 Route::get('/shop_detail/{slug}', [FrontendController::class, 'shop_detail'])->name('shop_detail');
 
 Route::get('/change-color/{id}', [FrontendController::class, 'change_color'])->name('change_color');

@@ -70,7 +70,7 @@
                 <div class="col-lg-4 col-md-6 pb-1">
                     <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
                         <p class="text-right">{{ $category->products_count }} Products</p>
-                        <a href="" class="cat-img position-relative overflow-hidden mb-3 text-center">
+                        <a href="/shop/{{$category->id}}" class="cat-img position-relative overflow-hidden mb-3 text-center">
                             <img class="img-fluid" src="{{ asset('uploads/category/'.$category->image) }}" alt="">
                         </a>
                         <h5 class="font-weight-semi-bold m-0">{{ $category->name }}</h5>
@@ -88,6 +88,7 @@
         </div>
         <div class="row px-xl-5 pb-3">
             @foreach ($variants->sortByDesc('id')->take(8) as $variant)
+            <a href="/shop_detail/{{$products->where('id', $variant->product_id)->first()->slug}}">
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -105,6 +106,7 @@
                         </div>
                     </div>
                 </div>
+            </a>
             @endforeach
         </div>
     </div>

@@ -8,6 +8,8 @@
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Favicon -->
     <link href="{{ asset('frontend/img/favicon.png') }}" rel="icon">
 
@@ -104,7 +106,7 @@
                 <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
                     <div class="navbar-nav w-100 overflow-hidden" style="height: auto">
                         @foreach ($categories as $category)
-                            <a href="" class="nav-item nav-link">{{ $category->name }}</a>
+                            <a href="/shop/{{$category->id}}" class="nav-item nav-link">{{ $category->name }}</a>
                         @endforeach
                     </div>
                 </nav>
