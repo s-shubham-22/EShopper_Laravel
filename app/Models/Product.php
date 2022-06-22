@@ -26,6 +26,11 @@ class Product extends Model
         return $this->hasMany(Variant::class);
     }
 
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',

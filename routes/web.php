@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VariantController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,21 +37,19 @@ Route::post('/filter_products', [FrontendController::class, 'filter_products'])-
 
 Route::get('/shop_detail/{slug}', [FrontendController::class, 'shop_detail'])->name('shop_detail');
 
+Route::post('/shop_detail/add-to-cart', [FrontendController::class, 'add_to_cart'])->name('add_to_cart')->middleware('auth');
+
 Route::get('/change-color/{id}', [FrontendController::class, 'change_color'])->name('change_color');
 
 Route::get('/change-image/{id}', [FrontendController::class, 'change_image'])->name('change_image');
 
-Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
+Route::resource('cart', CartController::class)->middleware('auth')->only(['index', 'store']);
 
-Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout')->middleware('auth');
 
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 
 Route::post('/query_form', [FrontendController::class, 'query_form'])->name('query_form');
-
-Route::get('/login', [FrontendController::class, 'login'])->name('login');
-
-Route::get('/register', [FrontendController::class, 'register'])->name('register');
 
 // Backend Routes
 
@@ -83,3 +82,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('contact', ContactController::class)->only(['index', 'store']);
 });
+
+Auth::routes();
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

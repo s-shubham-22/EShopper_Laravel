@@ -157,6 +157,11 @@ class FrontendController extends Controller
         return view('shop_detail', $this->data);
     }
 
+    public function add_to_cart(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function change_color($id)
     {
         $variant = Variant::find($id);
@@ -167,11 +172,6 @@ class FrontendController extends Controller
     {
         $variant = Variant::find($id);
         return $variant;
-    }
-
-    public function cart()
-    {
-        return view('cart');
     }
 
     public function checkout()

@@ -126,17 +126,22 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="/" class="nav-item nav-link {{ (request()->is('/')) ? 'active' : '' }}">Home</a>
                             <a href="/shop" class="nav-item nav-link {{ (request()->is('shop')) ? 'active' : '' }}">Shop</a>
-                            <a href="/shop_detail" class="nav-item nav-link {{ (request()->is('shop_detail*')) ? 'active' : '' }}">Shop Detail</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle {{ (request()->is('cart*') || request()->is('checkout*')) ? 'active' : '' }}" data-toggle="dropdown">Pages</a>
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="/cart" class="dropdown-item">Shopping Cart</a>
-                                    <a href="/checkout" class="dropdown-item">Checkout</a>
-                                </div>
-                            </div>
                             <a href="/contact" class="nav-item nav-link {{ (request()->is('contact*')) ? 'active' : '' }}">Contact</a>
                         </div>
                         @if (Auth::check())
+                        <div class="navbar-nav ml-auto py-0">
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle {{ (request()->is('cart*') || request()->is('checkout*')) ? 'active' : '' }}" data-toggle="dropdown">{{ Auth::user()->name }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                    <a href="/cart" class="dropdown-item">Shopping Cart</a>
+                                    <a href="/checkout" class="dropdown-item">Checkout</a>
+                                    <a href="/logout" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                </div>
+                            </div>
+                        </div>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                         @else
                             <div class="navbar-nav ml-auto py-0">
                                 <a href="/login" class="nav-item nav-link {{ (request()->is('login')) ? 'active' : '' }}">Login</a>
