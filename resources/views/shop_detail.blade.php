@@ -45,7 +45,7 @@
             <p class="mb-4">{{ $product->description }}</p>
             <form action="{{ route('cart.store') }}" method="post">
                 @csrf
-                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                <input type="hidden" name="user_id" value="{{ isset(Auth::user()->id) ? Auth::user()->id : '' }}">
                 <input type="hidden" name="product_id" value="{{ $product->id }}">
                 <input type="hidden" name="variant_id" value="{{ $product->variants->first()->id }}">
                 <input type="hidden" name="price" value="{{ $product->variants->first()->sale_price }}">

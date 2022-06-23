@@ -12,7 +12,7 @@ class FrontendController extends Controller
     public function index()
     {
         return view('index', [
-            'sliders' => HomeSlider::all(),
+            'sliders' => HomeSlider::where('status', 1)->get(),
         ]);
     }
 
