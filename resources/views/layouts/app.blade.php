@@ -133,9 +133,9 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle {{ (request()->is('cart*') || request()->is('checkout*')) ? 'active' : '' }}" data-toggle="dropdown">{{ Auth::user()->name }}</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="/cart" class="dropdown-item">Shopping Cart</a>
-                                    <a href="/checkout" class="dropdown-item">Checkout</a>
-                                    <a href="/logout" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                    <a href="{{ route('cart.index') }}" class="dropdown-item">Shopping Cart</a>
+                                    <a href="{{ route('order_list') }}" class="dropdown-item">Orders</a>
+                                    <a href="{{ route('logout') }}" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -144,8 +144,8 @@
                         </form>
                         @else
                             <div class="navbar-nav ml-auto py-0">
-                                <a href="/login" class="nav-item nav-link {{ (request()->is('login')) ? 'active' : '' }}">Login</a>
-                                <a href="/register" class="nav-item nav-link {{ (request()->is('register')) ? 'active' : '' }}">Register</a>
+                                <a href="{{ route('login') }}" class="nav-item nav-link {{ (request()->is('login')) ? 'active' : '' }}">Login</a>
+                                <a href="{{ route('register') }}" class="nav-item nav-link {{ (request()->is('register')) ? 'active' : '' }}">Register</a>
                             </div>                            
                         @endif
                     </div>

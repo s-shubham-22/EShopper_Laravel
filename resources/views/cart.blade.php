@@ -8,7 +8,7 @@
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">Shopping Cart</h1>
         <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0"><a href="/">Home</a></p>
             <p class="m-0 px-2">-</p>
             <p class="m-0">Shopping Cart</p>
         </div>
@@ -26,129 +26,54 @@
                     <tr>
                         <th>Products</th>
                         <th>Price</th>
+                        <th>Sale Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    <tr>
-                        <td class="align-middle"><img src="{{ asset('frontend/img/product-1.jpg') }}" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
-                        <td class="align-middle">$150</td>
+                    @php
+                        $sum = 0;
+                    @endphp
+                    @foreach ($carts as $cart)
+                    <tr id="row-{{ $cart->variant_id }}">
+                        <td class="align-middle"><img src="{{ asset('uploads/variant/').'/'.$cart->variant->image }}" alt="" style="width: 50px;"> {{ $cart->product->name }} ( <span style="display: inline-block; height:15px; width:15px; background-color:{{$cart->variant->color}}; border-radius:3px;"></span> , {{ $cart->variant->size }} )</td>
+                        <td class="align-middle">${{ $cart->variant->price }}</td>
+                        <td class="align-middle" id="price-{{ $cart->variant_id }}">${{ $cart->variant->sale_price }}</td>
                         <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                            <div class="input-group quantity mx-auto" style="width: 110px;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus" >
+                                    <button type="button" class="btn btn-sm btn-primary btn-minus" id="{{ $cart->variant->id }}">
                                     <i class="fa fa-minus"></i>
                                     </button>
                                 </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
+                                <input type="text"  style="display:inline-block; width:10px;" onchange="change_quantity({{ $cart->variant_id }})" class="form-control form-control-sm bg-secondary text-center quantity_ad" id="quantity-{{ $cart->variant_id }}" value="{{ $cart->quantity }}">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
+                                    <button type="button" class="btn btn-sm btn-primary btn-plus" id="{{ $cart->variant->id }}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
+                        <td class="align-middle total-price" id="total-{{ $cart->variant_id }}">${{ $cart->variant->sale_price * $cart->quantity }}</td>
+                        @php
+                            $sum += $cart->variant->sale_price * $cart->quantity;
+                        @endphp
+                        <td class="align-middle"><button type="button" onclick="delete_product({{ $cart->id }}, {{ $cart->variant->id }});" class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
+                        {{-- <td class="align-middle"><form action="{{ route('cart.destroy', $cart->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </form></td> --}}
                     </tr>
-                    <tr>
-                        <td class="align-middle"><img src="{{ asset('frontend/img/product-2.jpg') }}" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus" >
-                                    <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle"><img src="{{ asset('frontend/img/product-3.jpg') }}" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus" >
-                                    <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle"><img src="{{ asset('frontend/img/product-4.jpg') }}" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus" >
-                                    <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle"><img src="{{ asset('frontend/img/product-5.jpg') }}" alt="" style="width: 50px;"> Colorful Stylish Shirt</td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle">
-                            <div class="input-group quantity mx-auto" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-minus" >
-                                    <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control form-control-sm bg-secondary text-center" value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="align-middle">$150</td>
-                        <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
         <div class="col-lg-4">
-            <form class="mb-5" action="">
-                <div class="input-group">
-                    <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary">Apply Coupon</button>
-                    </div>
-                </div>
-            </form>
             <div class="card border-secondary mb-5">
                 <div class="card-header bg-secondary border-0">
                     <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
@@ -156,23 +81,103 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3 pt-1">
                         <h6 class="font-weight-medium">Subtotal</h6>
-                        <h6 class="font-weight-medium">$150</h6>
+                        <h6 class="font-weight-medium" id="subtotal">$ @php
+                            echo $sum;
+                        @endphp</h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$10</h6>
+                        <h6 class="font-weight-medium">$0</h6>
                     </div>
                 </div>
                 <div class="card-footer border-secondary bg-transparent">
                     <div class="d-flex justify-content-between mt-2">
                         <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">$160</h5>
+                        <h5 class="font-weight-bold" id="total">$@php
+                            echo $sum;
+                        @endphp</h5>
                     </div>
-                    <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                    <a href="{{ route('checkout') }}" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Cart End -->
+@endsection
+
+@section('script')
+    <script>
+        // function isvalidated(id){
+        //     console.log(($.isNumeric($('#quantity-'+id).val())) && ($.isNumeric($('#quantity-'+id).val()) > 0));
+        //     if(!$.isNumeric($('#quantity-'+id).val())){
+        //         alert("Please enter numbers");
+        //         return false;   
+        //     } 
+        // }
+
+        function getTotal() {
+            var sum = 0;
+            $('.total-price').each(function(index) {
+                sum += parseInt($(this).text().replace('$', ''));
+            });
+            
+            $('#subtotal').text('$'+sum);
+            $('#total').text('$'+sum);
+        }
+
+        function change_quantity(id) {
+            var quantity = $('#quantity-'+id).val();
+            if(!$.isNumeric(quantity) || parseInt(quantity) < 0) {
+                toastr.error('Invalid Quantity! Please Try Again!');
+            } else {
+                $.ajax({
+                    url: 'cart/change-quantity/',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        quantity: quantity,
+                        "_token": $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        toastr.options.timeOut = 2000;
+                        if(data.status == 'success') {
+                            if(data.quantity > 0) {
+                                $('#quantity-'+id).val(data.quantity);
+                                var price = '$' + parseInt(data.quantity) * parseInt($('#price-'+id).text().replace('$', ''));
+                                $('#total-'+id).text(price);
+                                getTotal();
+                                toastr.success('Quantity Updated Successfully!');
+                            } else {
+                                $('#row-'+id).remove();
+                                toastr.success('Product Removed From Cart Successfully!');
+                            }
+                        } else {
+                            toastr.error('Product Quantity is Not Updated in Cart! Please Try Again!');
+                        }
+                    }
+                });
+            }           
+        }
+
+        function delete_product(id, variant_id) {
+            $.ajax({
+                url: 'cart/'+id,
+                type: 'DELETE',
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    toastr.options.timeOut = 2000;
+                    if (data.success) {
+                        $('#row-'+variant_id).remove();
+                        getTotal();
+                        toastr.success(data.success);
+                    } else {
+                        toastr.error(data.error);
+                    }
+                }
+            });
+        }
+    </script>
 @endsection

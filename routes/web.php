@@ -43,9 +43,16 @@ Route::get('/change-color/{id}', [FrontendController::class, 'change_color'])->n
 
 Route::get('/change-image/{id}', [FrontendController::class, 'change_image'])->name('change_image');
 
-Route::resource('cart', CartController::class)->middleware('auth')->only(['index', 'store']);
+Route::resource('cart', CartController::class)->middleware('auth')->only(['index', 'store', 'destroy']);
+Route::post('cart/change-quantity', [CartController::class, 'change_quantity'])->middleware('auth')->name('change_quantity');
 
 Route::get('/checkout', [FrontendController::class, 'checkout'])->name('checkout')->middleware('auth');
+
+Route::get('/order_list', [FrontendController::class, 'order_list'])->name('order_list')->middleware('auth');
+
+Route::get('/orders/{id}', [FrontendController::class, 'orders'])->name('orders')->middleware('auth');
+
+Route::post('/order', [FrontendController::class, 'order'])->name('order')->middleware('auth');
 
 Route::get('/contact', [FrontendController::class, 'contact'])->name('contact');
 

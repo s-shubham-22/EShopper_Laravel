@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\QueryRequest;
-use App\Models\{HomeSlider, Category, Brand, Product, Variant, Contact, Query};
+use App\Http\Requests\{QueryRequest, OrderRequest};
+use Illuminate\Support\Facades\Auth;
+use App\Models\{HomeSlider, Category, Brand, Product, Variant, Contact, Query, Cart, Order, OrderDetail};
 
 class FrontendController extends Controller
 {
@@ -157,11 +158,6 @@ class FrontendController extends Controller
         return view('shop_detail', $this->data);
     }
 
-    public function add_to_cart(Request $request)
-    {
-        dd($request->all());
-    }
-
     public function change_color($id)
     {
         $variant = Variant::find($id);
@@ -176,7 +172,60 @@ class FrontendController extends Controller
 
     public function checkout()
     {
-        return view('checkout');
+        $this->data = Cart::where('user_id', Auth::user()->id)->with('product')->with('variant')->get();
+        if($this->data->count() < 1) {
+            return redirect('/')->with('error', 'No Products in Cart!');
+        }
+        return view('checkout', [
+            'carts' => $this->data
+        ]);
+    }
+
+    public function order_list()
+    {
+        $this->data = Order::where('user_id', Auth::user()->id)->with('order_detail')->get()->sortByDesc('id');
+        return view('order_list', [
+            'orders' => $this->data
+        ]);
+    }
+
+    public function orders($id)
+    {
+        $this->data = Order::find($id);
+        $this->data2 = OrderDetail::where('order_id', $id)->with('order')->with('product')->with('variant')->get();
+        return view('orders', [
+            'order' => $this->data,
+            'order_details' => $this->data2
+        ]);
+    }
+
+    public function order(OrderRequest $request)
+    {
+        $validated = $request->validated();
+        $validated['status'] = 'Pending';
+        $validated['created_by'] = $request->user_id;
+
+        $order = Order::create($validated);
+        $order_id = $order->id;
+        $carts = Cart::where('user_id', $request->user_id)->with('variant')->get();
+        $order_details = [];
+
+        foreach ($carts as $cart) {
+            $order_product['user_id'] = $request->user_id;
+            $order_product['order_id'] = $order_id;
+            $order_product['product_id'] = $cart->product_id;
+            $order_product['variant_id'] = $cart->variant_id;
+            $order_product['price'] = $cart->variant->sale_price;
+            $order_product['quantity'] = $cart->quantity;
+            $order_product['total'] = $cart->quantity * $cart->variant->sale_price;
+            $order_product['created_by'] = $request->user_id;
+
+            $order_detail = OrderDetail::create($order_product);
+            array_push($order_details, $order_detail);
+            $cart->delete();
+        }
+
+        return redirect('/')->with('success', 'Order Placed Successfully!');
     }
 
     public function contact()

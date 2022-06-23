@@ -16,7 +16,10 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('cart');
+        return view('cart', [
+            // 'carts' => Cart::where('product_id', Auth::user()->id)->with('product')->get()
+            'carts' => Cart::where('user_id', Auth::user()->id)->with('product')->with('variant')->get()
+        ]);
     }
 
     /**
@@ -50,8 +53,7 @@ class CartController extends Controller
         [
             'user_id' => $request->user_id,
             'product_id' => $request->product_id,
-            'variant_id' => $request->variant_id,
-            'price' => $request->price
+            'variant_id' => $request->variant_id
             //'quantity' => $request->quantity,
         ]);
 
@@ -100,8 +102,37 @@ class CartController extends Controller
      * @param  \App\Models\Cart  $cart
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy($id)
     {
-        //
+        $cart = cart::find($id);
+        if($cart->delete()) {
+            return response()->json([
+                'success' => 'Product Deleted Successfully!'
+            ]);
+        } else {
+            return response()->json([
+                'error' => 'Product not Deleted!'
+            ]);
+        }
+    }
+
+    public function change_quantity(Request $request)
+    {
+        $cart = Cart::where('user_id', Auth::user()->id)
+        ->where('variant_id', $request->id)
+        ->first();
+
+        $cart['quantity'] = $request->quantity;
+        $cart->save();
+
+        $quantity = $cart->quantity;
+        if($quantity == 0){
+            $cart->delete();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'quantity'=> $quantity
+        ]);
     }
 }

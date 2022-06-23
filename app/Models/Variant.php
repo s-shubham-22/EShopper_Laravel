@@ -21,6 +21,11 @@ class Variant extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public function order_detail()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
     protected $fillable = [
         'color',
         'size',

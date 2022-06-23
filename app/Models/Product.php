@@ -31,6 +31,11 @@ class Product extends Model
         return $this->hasMany(Cart::class);
     }
 
+    public function order_detail()
+    {
+        return $this->hasMany(OrderDetail::class);
+    }
+
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'name',

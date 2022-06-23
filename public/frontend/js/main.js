@@ -98,6 +98,7 @@
             }
         }
         button.parent().parent().find('input').val(newVal);
+        $('#quantity-'+$(this).attr('id')).change();
     });
     
 })(jQuery);
