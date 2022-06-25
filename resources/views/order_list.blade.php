@@ -21,8 +21,8 @@
                     @foreach ($orders as $order)
                     <tr id="row-{{ $order->id }}">
                         <td class="align-middle">{{ $loop->iteration }}</td>
-                        <td class="align-middle">{{ $order->status }}</td>
                         <td class="align-middle" id="price-{{ $order->id }}">${{ $order->order_detail->sum('total') }}</td>
+                        <td class="align-middle">{{ $order->status }}</td>
                         <td class="align-middle" id="details-{{ $order->id }}"><a href="{{ route('orders', $order->id) }}" class="btn btn-primary">Details</a></td>
                         <td class="align-middle total-price" id="total-{{ $order->id }}">{{ date('d-m-Y', strtotime($order->created_at)) }}</td>
                     </tr>

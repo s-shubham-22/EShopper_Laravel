@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\BackendController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeSliderController;
 use App\Http\Controllers\BrandController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\VariantController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,9 @@ Route::prefix('admin')->group(function () {
     Route::put('variant/update/{id}', [VariantController::class, 'update'])->name('variant.update');
     Route::delete('variant/delete/{id}', [VariantController::class, 'destroy'])->name('variant.destroy');
     Route::post('variant/change_status', [VariantController::class, 'change_status'])->name('variant.change_status');
+
+    Route::resource('order', OrderController::class)->only(['index', 'show']);
+    Route::post('order/change-status', [OrderController::class, 'change_status'])->name('order.change_status');
 
     Route::resource('query', QueryController::class);
 
