@@ -26,7 +26,7 @@ class AddDescriptionToHomeSlidersTable extends Migration
     public function down()
     {
         Schema::table('home_sliders', function (Blueprint $table) {
-            //
+            $table->dropColumn('description');
         });
     }
 }

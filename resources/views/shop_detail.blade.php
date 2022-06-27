@@ -104,6 +104,7 @@
 
 
 <!-- Products Start -->
+@if (getRelatedProducts($product->id)->count() > 0)
 <div class="container-fluid py-5">
     <div class="text-center mb-4">
         <h2 class="section-title px-5"><span class="px-2">Related Products</span></h2>
@@ -133,6 +134,7 @@
     </div>
 </div>
 <!-- Products End -->
+@endif
 @endsection
 
 @section('script')

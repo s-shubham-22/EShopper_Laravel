@@ -33,27 +33,27 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>First Name</label>
-                            <input id="b_fname" value="{{ old('b_fname') }}" type="text" name="b_fname" class="form-control" type="text" placeholder="John" required>
+                            <input id="b_fname" value="{{ old('b_fname') }}" type="text" name="b_fname" class="form-control" type="text" placeholder="First Name" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Last Name</label>
-                            <input id="b_lname" value="{{ old('b_lname') }}" type="text" name="b_lname" class="form-control" type="text" placeholder="Doe" required>
+                            <input id="b_lname" value="{{ old('b_lname') }}" type="text" name="b_lname" class="form-control" type="text" placeholder="Last Name" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input id="b_email" value="{{ old('b_email') }}" type="email" name="b_email" class="form-control" type="text" placeholder="example@email.com" required>
+                            <input id="b_email" value="{{ old('b_email') }}" type="email" name="b_email" class="form-control" type="text" placeholder="Email ID" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input id="b_mobile" value="{{ old('b_mobile') }}" type="tel" name="b_mobile" class="form-control" type="text" placeholder="+123 456 789" required>
+                            <input id="b_mobile" value="{{ old('b_mobile') }}" type="tel" name="b_mobile" class="form-control" type="text" placeholder="Mobile No." required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 1</label>
-                            <input id="b_addr_1" value="{{ old('b_addr_1') }}" type="text"  name="b_addr_1" class="form-control" type="text" placeholder="123 Street" required>
+                            <input id="b_addr_1" value="{{ old('b_addr_1') }}" type="text"  name="b_addr_1" class="form-control" type="text" placeholder="Address Line 1" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 2</label>
-                            <input id="b_addr_2" value="{{ old('b_addr_2') }}" type="text" name="b_addr_2" class="form-control" type="text" placeholder="123 Street" required>
+                            <input id="b_addr_2" value="{{ old('b_addr_2') }}" type="text" name="b_addr_2" class="form-control" type="text" placeholder="Address Line 2" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Country</label>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code</label>
-                            <input id="b_zip" value="{{ old('b_zip') }}" type="tel" name="b_zip" class="form-control" type="text" placeholder="123" required maxlength="6">
+                            <input id="b_zip" value="{{ old('b_zip') }}" type="tel" name="b_zip" class="form-control" type="text" placeholder="123" required maxlength="6" required>
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="custom-control custom-checkbox">
@@ -88,31 +88,31 @@
                     <div class="row">
                         <div class="col-md-6 form-group">
                             <label>First Name</label>
-                            <input id="s_fname" value="{{ old('s_fname') }}" name="s_fname" class="form-control" type="text" placeholder="John">
+                            <input id="s_fname" value="{{ old('s_fname') }}" name="s_fname" class="form-control" type="text" placeholder="First Name" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Last Name</label>
-                            <input id="s_lname" value="{{ old('s_lname') }}" name="s_lname" class="form-control" type="text" placeholder="Doe">
+                            <input id="s_lname" value="{{ old('s_lname') }}" name="s_lname" class="form-control" type="text" placeholder="Last Name" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input id="s_email" value="{{ old('s_email') }}" name="s_email" class="form-control" type="text" placeholder="example@email.com">
+                            <input id="s_email" value="{{ old('s_email') }}" name="s_email" class="form-control" type="email" placeholder="Email ID" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input id="s_mobile" value="{{ old('s_mobile') }}" name="s_mobile" class="form-control" type="text" placeholder="+123 456 789">
+                            <input id="s_mobile" value="{{ old('s_mobile') }}" name="s_mobile" class="form-control" type="text" placeholder="Mobile No." required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 1</label>
-                            <input id="s_addr_1" value="{{ old('s_addr_1') }}" name="s_addr_1" class="form-control" type="text" placeholder="123 Street">
+                            <input id="s_addr_1" value="{{ old('s_addr_1') }}" name="s_addr_1" class="form-control" type="text" placeholder="Address Line 1" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 2</label>
-                            <input id="s_addr_2" value="{{ old('s_addr_2') }}" name="s_addr_2" class="form-control" type="text" placeholder="123 Street">
+                            <input id="s_addr_2" value="{{ old('s_addr_2') }}" name="s_addr_2" class="form-control" type="text" placeholder="Address Line 2" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Country</label>
-                            <select id="s_country" value="{{ old('s_country') }}" name="s_country" class="custom-select">
+                            <select id="s_country" value="{{ old('s_country') }}" name="s_country" class="custom-select" required>
                                 <option value="India" selected>India</option>
                                 <option value="United States">United States</option>
                                 <option value="Japan">Japan</option>
@@ -120,15 +120,15 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>City</label>
-                            <input id="s_city" value="{{ old('s_city') }}" name="s_city" class="form-control" type="text" placeholder="New York" required>
+                            <input id="s_city" value="{{ old('s_city') }}" name="s_city" class="form-control" type="text" placeholder="City" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>State</label>
-                            <input id="s_state" value="{{ old('s_state') }}" name="s_state" class="form-control" type="text" placeholder="New York" required>
+                            <input id="s_state" value="{{ old('s_state') }}" name="s_state" class="form-control" type="text" placeholder="State" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code</label>
-                            <input id="s_zip" value="{{ old('s_zip') }}" name="s_zip" class="form-control" type="text" placeholder="123" required>
+                            <input id="s_zip" value="{{ old('s_zip') }}" name="s_zip" class="form-control" type="text" placeholder="ZIP Code" required>
                         </div>
                     </div>
                 </div>

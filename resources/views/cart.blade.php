@@ -25,21 +25,22 @@
                 <thead class="bg-secondary text-dark">
                     <tr>
                         <th>Products</th>
-                        <th>Price</th>
                         <th>Sale Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
                         <th>Remove</th>
                     </tr>
                 </thead>
-                <tbody class="align-middle">
+                <tbody class="align-middle" id="cart-table-body">
                     @php
                         $sum = 0;
                     @endphp
+                    @if ($carts->count() == 0)
+                        <td colspan="5">No Products in Cart</td>
+                    @endif
                     @foreach ($carts as $cart)
-                    <tr id="row-{{ $cart->variant_id }}">
+                    <tr id="row-{{ $cart->variant_id }}" class="cart-product-row">
                         <td class="align-middle"><img src="{{ asset('uploads/variant/').'/'.$cart->variant->image }}" alt="" style="width: 50px;"> {{ $cart->product->name }} ( <span style="display: inline-block; height:15px; width:15px; background-color:{{$cart->variant->color}}; border-radius:3px;"></span> , {{ $cart->variant->size }} )</td>
-                        <td class="align-middle">${{ $cart->variant->price }}</td>
                         <td class="align-middle" id="price-{{ $cart->variant_id }}">${{ $cart->variant->sale_price }}</td>
                         <td class="align-middle">
                             <div class="input-group quantity mx-auto" style="width: 110px;">
@@ -150,8 +151,16 @@
                                 toastr.success('Quantity Updated Successfully!');
                             } else {
                                 $('#row-'+id).remove();
+                                if($('.cart-product-row').length == 0){
+                                    $('#cart-table-body').html('<td colspan="5">No Products in Cart</td>');
+                                }
                                 toastr.success('Product Removed From Cart Successfully!');
                             }
+                            var sum = 0;
+                            $('.quantity_ad').each(function() {
+                                sum += parseInt($(this).val());
+                            });
+                            $('#cart-quantity-badge').text(sum);
                         } else {
                             toastr.error('Product Quantity is Not Updated in Cart! Please Try Again!');
                         }
@@ -161,23 +170,34 @@
         }
 
         function delete_product(id, variant_id) {
-            $.ajax({
-                url: 'cart/'+id,
-                type: 'DELETE',
-                data: {
-                    "_token": $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    toastr.options.timeOut = 2000;
-                    if (data.success) {
-                        $('#row-'+variant_id).remove();
-                        getTotal();
-                        toastr.success(data.success);
-                    } else {
-                        toastr.error(data.error);
+            if(confirm('Do you want to delete this item from your Cart?'))
+            {
+                $.ajax({
+                    url: 'cart/'+id,
+                    type: 'DELETE',
+                    data: {
+                        "_token": $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        toastr.options.timeOut = 2000;
+                        if (data.success) {
+                            $('#row-'+variant_id).remove();
+                            if($('.cart-product-row').length == 0){
+                                $('#cart-table-body').html('<td colspan="5">No Products in Cart</td>');
+                            }
+                            var sum = 0;
+                            $('.quantity_ad').each(function() {
+                                sum += parseInt($(this).val());
+                            });
+                            $('#cart-quantity-badge').text(sum);
+                            getTotal();
+                            toastr.success(data.success);
+                        } else {
+                            toastr.error(data.error);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     </script>
 @endsection

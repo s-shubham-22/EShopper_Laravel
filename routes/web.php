@@ -28,9 +28,9 @@ use App\Http\Controllers\OrderController;
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 
-Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
-
 Route::get('/shop/{category_id?}', [FrontendController::class, 'shop'])->name('shop');
+
+// Route::get('/shop/{category_id?}', [FrontendController::class, 'shop'])->name('shop');
 
 Route::post('/sort_products', [FrontendController::class, 'sort_products'])->name('sort_products');
 
@@ -61,9 +61,10 @@ Route::post('/query_form', [FrontendController::class, 'query_form'])->name('que
 
 // Backend Routes
 
-Route::get('/admin', [BackendController::class, 'index'])->name('admin');
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', [BackendController::class, 'index'])->name('index');
+
     Route::resource('home-slider', HomeSliderController::class);
     Route::post('home-slider/change_status', [HomeSliderController::class, 'change_status'])->name('home-slider.change_status');
 

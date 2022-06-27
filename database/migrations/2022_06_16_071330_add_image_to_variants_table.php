@@ -26,7 +26,7 @@ class AddImageToVariantsTable extends Migration
     public function down()
     {
         Schema::table('variants', function (Blueprint $table) {
-            //
+            $table->dropColumn('image');
         });
     }
 }
